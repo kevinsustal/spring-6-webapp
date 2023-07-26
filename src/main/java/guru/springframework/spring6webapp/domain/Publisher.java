@@ -1,27 +1,30 @@
 package guru.springframework.spring6webapp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String publisherName;
     private String address;
     private String city;
     private String state;
     private String zip;
 
-    public long getId() {
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books;
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -80,15 +83,17 @@ public class Publisher {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Publisher publisher)) return false;
+        if (!(o instanceof Publisher)) return false;
 
-        return getId() == publisher.getId();
+        Publisher publisher = (Publisher) o;
+
+        if (getId() != publisher.getId()) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
         return (int) (getId() ^ (getId() >>> 32));
     }
-
-
 }
