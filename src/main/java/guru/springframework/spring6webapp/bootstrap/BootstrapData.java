@@ -60,7 +60,7 @@ public class BootstrapData implements CommandLineRunner {
         noEJBSaved.getAuthors().add(nicole);
 
 
-        //Ading Publisher
+        //Adding Publisher
         Publisher macmillan = new Publisher();
         macmillan.setPublisherName("Macmillan Publishers");
         macmillan.setAddress("Calamba, Philippines");
